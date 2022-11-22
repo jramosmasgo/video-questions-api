@@ -37,7 +37,9 @@
       "@utils/*": ["api/utils/*"],
       "@controllers/*": ["api/controllers/*"],
       "@middlewares/*": ["api/middlewares/*"],
-      "@core/*": ["api/core/*"]
+      "@core/*": ["api/core/*"],
+      "@data/*": ["api/data/*"],
+      "@validators/*": ["api/validators/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": [

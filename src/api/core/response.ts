@@ -1,38 +1,25 @@
 import { Response } from "express";
-
 interface PropertiesResponseApi<T> {
-  data?: T;
-  error?: any | null;
+  ok: boolean;
+  data: T | null;
   message: string;
+  action: string;
+  code: number;
 }
-
 export default class ResponseApi<T> {
-  ok: boolean = true;
-  message: string = "";
-  data: T | null = null;
-  error: any;
+  data: PropertiesResponseApi<T>;
 
-  constructor(param: PropertiesResponseApi<T>) {
-    this.data = param.data ?? null;
-    this.error = param.error;
-    this.message = param.message;
+  constructor(param: Partial<PropertiesResponseApi<T>>) {
+    this.data = {
+      ok: param.ok != undefined ? false : true,
+      data: param.data || null,
+      message: param.message!,
+      action: param.action || "",
+      code: param.code || 200,
+    };
   }
 
-  sendSuccess(res: Response) {
-    return res.status(200).json({
-      ok: true,
-      message: this.message,
-      data: this.data,
-      error: null,
-    });
-  }
-
-  sendError(res: Response, statusCode: number) {
-    return res.status(statusCode).json({
-      ok: false,
-      message: this.message,
-      data: null,
-      error: this.error,
-    });
+  sendResponse(res: Response) {
+    return res.status(this.data.code).json(this.data);
   }
 }
