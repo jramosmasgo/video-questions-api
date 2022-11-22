@@ -6,3 +6,8 @@ export interface IUser {
   loginType: string;
   verified: boolean;
 }
+
+export interface LoginUser {
+  user: IUser;
+  token: string;
+}

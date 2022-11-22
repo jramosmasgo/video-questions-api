@@ -7,10 +7,13 @@ const ErrorMiddleware = (
   res: Response,
   _next: NextFunction
 ) => {
+  console.log("Error:", err);
   new ResponseApi({
-    error: err,
+    code: err.statusCode ?? 500,
     message: err.message,
-  }).sendError(res, err.statusCode ?? 500);
+    ok: false,
+    action: err.errorType,
+  }).sendResponse(res);
 };
 
 export default ErrorMiddleware;
